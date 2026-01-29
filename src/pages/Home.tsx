@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
     if (!user) {
         return (
             <div className={styles.container}>
-                <h1 className={styles.logo}>{t('app.title')}</h1>
+                <h1 className={styles.logo}>JeuxMaths</h1>
                 <div className="card glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem' }}>
                     <form onSubmit={handleLogin} className="flex-col gap-6">
                         <h2 className="text-center mb-8">{t('home.welcome')}</h2>
@@ -46,8 +46,8 @@ export const Home: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.logo}>{t('app.title')}</h1>
-            <p className="text-xs text-center text-opacity-50 mb-4">v1.1</p>
+            <h1 className={styles.logo}>JeuxMaths</h1>
+            <p className="text-xs text-center text-opacity-50 mb-4">v1.0.1</p>
             <p className={styles.welcome}>{t('home.welcome')}, {user.email}</p>
 
             <div className={styles.menu}>

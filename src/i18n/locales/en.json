@@ -1,7 +1,4 @@
 {
-    "app": {
-        "title": "JeuxMaths"
-    },
     "home": {
         "welcome": "Welcome",
         "email_placeholder": "Your email address",
