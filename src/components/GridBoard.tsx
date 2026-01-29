@@ -32,6 +32,7 @@ export const GridBoard: React.FC<GridBoardProps> = ({ cells, selectedCellId, onS
                 let className = styles.cell;
                 if (cell.type === 'number_fixed' || isInput) className += ` ${styles.cellNumber}`;
                 if (isInput) className += ` ${styles.input}`;
+                if (cell.isResult) className += ` ${styles.result}`;
                 if (isSelected) className += ` ${styles.inputSelected}`;
                 if (isCorrect) className += ` ${styles.inputCorrect}`;
                 if (isError) className += ` ${styles.inputError}`;

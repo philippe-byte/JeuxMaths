@@ -44,6 +44,11 @@ input {
   padding: 0 var(--spacing-md);
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .glass-panel {
   background: hsl(var(--color-surface-glass));
   backdrop-filter: blur(12px);
@@ -235,6 +240,30 @@ input {
   padding: 2rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
+.pb-8 {
+  padding-bottom: 2rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -271,6 +300,19 @@ input {
 .mb-8 {
   margin-bottom: 2rem;
 }
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
+}
+
 
 .my-4 {
   margin-top: 1rem;
@@ -428,4 +470,82 @@ input {
 
 .mt-12 {
   margin-top: 3rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 480px) {
+  /* No changes needed here if grid-cols-2 is default for small */
+}
+
+
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sm\:scale-85 {
+    transform: scale(0.85);
+  }
+
+  .sm\:p-8 {
+    padding: 2rem;
+  }
+}
+
+
+.origin-center {
+  transform-origin: center;
+}
+
+.scale-\[0\.7\] {
+  transform: scale(0.7);
+}
+
+.sm\:scale-85 {
+  transform: scale(0.85);
+}
+
+.md\:scale-95 {
+  transform: scale(0.95);
+}
+
+.lg\:scale-100 {
+  transform: scale(1);
+}
+
+@media (min-width: 640px) {
+  .sm\:scale-85 {
+    transform: scale(0.85);
+  }
+
+  .sm\:p-8 {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:scale-95 {
+    transform: scale(0.95);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:scale-100 {
+    transform: scale(1);
+  }
 }

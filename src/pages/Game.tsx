@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { GridData, Cell, CorrectionMode } from '../lib/types';
-import { getGrids } from '../lib/data';
+import { getGrids } from '../lib/grid';
 import { useUser } from '../lib/userState';
 import { GridBoard } from '../components/GridBoard';
 import { NumberDock } from '../components/NumberDock';
@@ -223,30 +223,32 @@ export const Game: React.FC = () => {
     return (
         <div className="flex flex-col relative bg-[hsl(var(--color-background))]" style={{ height: '100dvh', maxHeight: '100dvh', overflow: 'hidden' }}>
             {/* Zone 1: Header (Top) - Fixed size */}
-            <header className="flex-none p-4 flex items-center justify-between z-10">
-                <button className="btn btn-secondary p-2" onClick={() => navigate('/level')}>
-                    <ArrowLeft size={20} />
+            <header className="flex-none p-4 sm:p-6 flex items-center justify-between z-10 max-w-5xl mx-auto w-full">
+                <button className="btn btn-secondary py-2 px-4 text-sm" onClick={() => navigate('/level')}>
+                    <ArrowLeft size={16} /> {t('level_select.back')}
                 </button>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center flex-1">
                     <h2 className="text-xl font-bold text-center capitalize leading-tight">{t(`level_select.${levelKey}`)}</h2>
                     <div className="text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium">
                         {t(`level_select.${correctionMode}`)}
                     </div>
                 </div>
-                <button className="btn btn-secondary p-2" onClick={loadGrid}>
-                    <RotateCcw size={20} />
+                <button className="btn btn-secondary py-2 px-4 text-sm" onClick={loadGrid}>
+                    <RotateCcw size={16} /> {t('game.reset')}
                 </button>
             </header>
 
             {/* Zone 2: GridBoard (Center) - Flexible and Centered */}
-            <main className="flex-1 flex items-center justify-center overflow-auto p-4 md:p-8 min-h-0">
-                <div className="transform scale-[0.8] sm:scale-90 md:scale-100 transition-transform duration-300">
-                    <GridBoard
-                        cells={cells}
-                        selectedCellId={selectedCellId}
-                        onSelectCell={handleCellSelect}
-                        gameStatus={gameStatus}
-                    />
+            <main className="flex-1 flex items-center justify-center overflow-auto p-2 sm:p-4 md:p-8 min-h-0 w-full">
+                <div className="w-full h-full flex items-center justify-center overflow-auto">
+                    <div className="transform origin-center scale-[0.7] sm:scale-85 md:scale-95 lg:scale-100 transition-transform duration-300">
+                        <GridBoard
+                            cells={cells}
+                            selectedCellId={selectedCellId}
+                            onSelectCell={handleCellSelect}
+                            gameStatus={gameStatus}
+                        />
+                    </div>
                 </div>
             </main>
 

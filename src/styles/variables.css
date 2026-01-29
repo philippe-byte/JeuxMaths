@@ -3,17 +3,17 @@
   --color-primary: 210 80% 50%;
   --color-primary-light: 210 80% 95%;
   --color-secondary: 190 70% 40%;
-  
+
   --color-background: 220 20% 97%;
   --color-surface: 0 0% 100%;
   --color-surface-glass: 0 0% 100% / 0.8;
-  
+
   --color-text-main: 220 40% 10%;
   --color-text-muted: 220 20% 40%;
-  
+
   --color-success: 150 60% 45%;
   --color-success-bg: 150 60% 95%;
-  
+
   --color-error: 0 70% 60%;
   --color-error-bg: 0 70% 95%;
 
@@ -37,7 +37,7 @@
   --font-size-xl: 1.5rem;
   --font-size-2xl: 2rem;
   --font-size-3xl: 3rem;
-  
+
   /* Radii */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -55,11 +55,29 @@
   --transition-normal: 300ms ease;
 }
 
+.theme-spring {
+  --color-primary: 150 45% 30%;
+  /* Pine Green */
+  --color-primary-light: 150 45% 95%;
+}
+
+.theme-summer {
+  --color-primary: 15 90% 55%;
+  /* Orange-Red */
+  --color-primary-light: 15 90% 95%;
+}
+
+.theme-autumn {
+  --color-primary: 25 70% 45%;
+  /* Rust */
+  --color-primary-light: 25 70% 95%;
+}
+
 .dark {
   --color-background: 220 30% 10%;
   --color-surface: 220 25% 15%;
   --color-surface-glass: 220 25% 15% / 0.8;
-  
+
   --color-text-main: 220 20% 95%;
   --color-text-muted: 220 20% 70%;
 

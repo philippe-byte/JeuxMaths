@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.logo}>JeuxMaths</h1>
-            <p className="text-xs text-center text-opacity-50 mb-4">v1.0.1</p>
+            <p className="text-xs text-center text-opacity-50 mb-4">v1.0.0</p>
             <p className={styles.welcome}>{t('home.welcome')}, {user.email}</p>
 
             <div className={styles.menu}>

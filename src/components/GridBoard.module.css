@@ -29,15 +29,21 @@
 .cellNumber,
 .operator {
     background-color: #fff8e1;
-    /* Light yellow background from image */
-    color: #1a1a1a;
+    color: #000000;
+    /* Tous les caractères par défaut en noir */
 }
 
 .input {
     cursor: pointer;
     background-color: #ffffff;
     border: 1px solid #dcdcdc;
-    color: hsl(var(--color-primary));
+    color: #000000;
+    /* Chiffres saisis en noir */
+}
+
+.result {
+    color: #000000 !important;
+    /* Résultats également en noir par défaut */
 }
 
 .inputSelected {
@@ -47,13 +53,17 @@
 }
 
 .inputCorrect {
-    background-color: hsl(var(--color-success-bg));
-    color: hsl(var(--color-success));
+    background-color: #e8f5e9 !important;
+    /* Vert pâle pour le fond */
+    color: #2e7d32 !important;
+    /* Vert foncé pour le nombre */
 }
 
 .inputError {
-    background-color: hsl(var(--color-error-bg));
-    color: hsl(var(--color-error));
+    background-color: #ffebee !important;
+    /* Rouge pâle pour le fond */
+    color: #c62828 !important;
+    /* Rouge foncé pour le nombre */
 }
 
 .operator {

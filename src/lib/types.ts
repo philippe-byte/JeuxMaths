@@ -12,6 +12,7 @@ export interface Cell {
     col: number;
     isCorrect?: boolean; // For UI feedback
     isError?: boolean;   // For UI feedback
+    isResult?: boolean;  // If this cell is the result of an equation
 }
 
 export interface GridData {

@@ -5,7 +5,7 @@
         "play": "Play",
         "stats": "Statistics",
         "leaderboard": "Player Comparison",
-        "options": "Options / Languages",
+        "options": "Settings",
         "change_player": "Change player"
     },
     "level_select": {
@@ -27,6 +27,7 @@
     },
     "game": {
         "loading": "Loading...",
+        "reset": "Reset",
         "restart": "Restart Grid",
         "check": "Check",
         "errors": "Errors",
@@ -44,7 +45,7 @@
         "reset": "Reset"
     },
     "options": {
-        "title": "Options",
+        "title": "Settings",
         "language": "Language",
         "reset_stats": "Reset Stats",
         "confirm_reset": "Are you sure?",
@@ -59,7 +60,12 @@
         "col_current": "Current Translation",
         "col_new": "New Translation",
         "file_error": "Invalid JSON file. Please check the format.",
-        "success": "Language added successfully!"
+        "success": "Language added successfully!",
+        "theme": "Visual Theme",
+        "winter": "Winter",
+        "spring": "Spring",
+        "summer": "Summer",
+        "autumn": "Autumn"
     },
     "leaderboard": {
         "title": "Player Comparison",

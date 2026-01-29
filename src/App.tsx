@@ -10,6 +10,14 @@ import { AddLanguage } from './pages/AddLanguage';
 import { Leaderboard } from './pages/Leaderboard';
 
 function App() {
+  React.useEffect(() => {
+    const theme = localStorage.getItem('app-theme') || 'winter';
+    document.documentElement.classList.remove('theme-spring', 'theme-summer', 'theme-autumn');
+    if (theme !== 'winter') {
+      document.documentElement.classList.add(`theme-${theme}`);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Layout>
