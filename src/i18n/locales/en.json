@@ -1,0 +1,75 @@
+{
+    "app": {
+        "title": "JeuxMaths"
+    },
+    "home": {
+        "welcome": "Welcome",
+        "email_placeholder": "Your email address",
+        "play": "Play",
+        "stats": "Statistics",
+        "leaderboard": "Player Comparison",
+        "options": "Options / Languages",
+        "change_player": "Change player"
+    },
+    "level_select": {
+        "title": "Choose your grid level",
+        "difficulty_title": "Choose the difficulty",
+        "beginner": "Beginner Mode",
+        "beginner_desc": "Immediate feedback on every cell.",
+        "expert": "Expert Mode",
+        "expert_desc": "Feedback only on calculation results.",
+        "simple_desc": "A small grid for warm-up.",
+        "advanced_desc": "A medium grid with more operations.",
+        "complex_desc": "A large grid for a real challenge.",
+        "simple": "Simple Grid",
+        "advanced": "Advanced Grid",
+        "expert_grid": "Expert Grid",
+        "random_grid": "Random Grid",
+        "random_desc": "A grid generated on the fly.",
+        "back": "Back"
+    },
+    "game": {
+        "loading": "Loading...",
+        "restart": "Restart Grid",
+        "check": "Check",
+        "errors": "Errors",
+        "time": "Time",
+        "candidates": "Available Numbers",
+        "victory": "Well done!",
+        "victory_desc": "You solved the grid.",
+        "next": "Next Grid",
+        "menu": "Menu"
+    },
+    "stats": {
+        "title": "Your Statistics",
+        "games_played": "Games Played",
+        "success_rate": "Success Rate",
+        "reset": "Reset"
+    },
+    "options": {
+        "title": "Options",
+        "language": "Language",
+        "reset_stats": "Reset Stats",
+        "confirm_reset": "Are you sure?",
+        "add_language": "Add Language",
+        "add_file": "Import from File",
+        "add_manual": "Manual Creation",
+        "lang_name": "Language Name (ex: German)",
+        "lang_code": "Language Code (ex: de)",
+        "save": "Save Language",
+        "cancel": "Cancel",
+        "col_key": "Variable",
+        "col_current": "Current Translation",
+        "col_new": "New Translation",
+        "file_error": "Invalid JSON file. Please check the format.",
+        "success": "Language added successfully!"
+    },
+    "leaderboard": {
+        "title": "Player Comparison",
+        "player": "Player",
+        "total_wins": "Total Wins",
+        "total_plays": "Total Plays",
+        "best_streak": "Best Streak",
+        "no_players": "No players yet."
+    }
+}

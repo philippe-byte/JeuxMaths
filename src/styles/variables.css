@@ -1,0 +1,69 @@
+:root {
+  /* Colors */
+  --color-primary: 210 80% 50%;
+  --color-primary-light: 210 80% 95%;
+  --color-secondary: 190 70% 40%;
+  
+  --color-background: 220 20% 97%;
+  --color-surface: 0 0% 100%;
+  --color-surface-glass: 0 0% 100% / 0.8;
+  
+  --color-text-main: 220 40% 10%;
+  --color-text-muted: 220 20% 40%;
+  
+  --color-success: 150 60% 45%;
+  --color-success-bg: 150 60% 95%;
+  
+  --color-error: 0 70% 60%;
+  --color-error-bg: 0 70% 95%;
+
+  --circle-bg: 195 50% 92%;
+  --circle-border: 195 40% 70%;
+  --circle-text: 220 40% 10%;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Typography */
+  --font-family-main: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+  
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+
+.dark {
+  --color-background: 220 30% 10%;
+  --color-surface: 220 25% 15%;
+  --color-surface-glass: 220 25% 15% / 0.8;
+  
+  --color-text-main: 220 20% 95%;
+  --color-text-muted: 220 20% 70%;
+
+  --circle-bg: 220 20% 20%;
+  --circle-border: 220 20% 30%;
+  --circle-text: 220 20% 95%;
+}

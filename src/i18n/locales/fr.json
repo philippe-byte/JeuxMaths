@@ -1,0 +1,75 @@
+{
+    "app": {
+        "title": "JeuxMaths"
+    },
+    "home": {
+        "welcome": "Bienvenue",
+        "email_placeholder": "Votre adresse email",
+        "play": "Jouer",
+        "stats": "Statistiques",
+        "leaderboard": "Comparaison Joueurs",
+        "options": "Options / Langues",
+        "change_player": "Changer de joueur"
+    },
+    "level_select": {
+        "title": "Choisissez votre niveau de grille",
+        "difficulty_title": "Choisissez la difficulté",
+        "beginner": "Niveau Débutant",
+        "beginner_desc": "Correction immédiate sur chaque case.",
+        "expert": "Niveau Expert",
+        "expert_desc": "Correction seulement sur les résultats de calcul.",
+        "simple_desc": "Une petite grille pour s'échauffer.",
+        "advanced_desc": "Une grille moyenne avec plus d'opérations.",
+        "complex_desc": "Une grande grille pour un vrai défi.",
+        "simple": "Grille Simple",
+        "advanced": "Grille Avancée",
+        "expert_grid": "Grille Experte",
+        "random_grid": "Grille Aléatoire",
+        "random_desc": "Une grille générée aléatoirement pour vous.",
+        "back": "Retour"
+    },
+    "game": {
+        "loading": "Chargement...",
+        "restart": "Recommencer la grille",
+        "check": "Vérifier",
+        "errors": "Erreurs",
+        "time": "Temps",
+        "candidates": "Nombres disponibles",
+        "victory": "Bravo !",
+        "victory_desc": "Vous avez résolu la grille.",
+        "next": "Grille suivante",
+        "menu": "Menu"
+    },
+    "stats": {
+        "title": "Vos Statistiques",
+        "games_played": "Parties jouées",
+        "success_rate": "Taux de réussite",
+        "reset": "Réinitialiser"
+    },
+    "options": {
+        "title": "Options",
+        "language": "Langue",
+        "reset_stats": "Réinitialiser les stats",
+        "confirm_reset": "Êtes-vous sûr ?",
+        "add_language": "Ajouter une langue",
+        "add_file": "Importer un fichier",
+        "add_manual": "Création manuelle",
+        "lang_name": "Nom de la langue (ex: Allemand)",
+        "lang_code": "Code ISO (ex: de)",
+        "save": "Enregistrer la langue",
+        "cancel": "Annuler",
+        "col_key": "Variable",
+        "col_current": "Traduction actuelle",
+        "col_new": "Nouvelle traduction",
+        "file_error": "Fichier JSON invalide. Veuillez vérifier le format.",
+        "success": "Langue ajoutée avec succès !"
+    },
+    "leaderboard": {
+        "title": "Comparaison des Joueurs",
+        "player": "Joueur",
+        "total_wins": "Victoires totales",
+        "total_plays": "Parties jouées",
+        "best_streak": "Meilleure série",
+        "no_players": "Aucun joueur pour le moment."
+    }
+}

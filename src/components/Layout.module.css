@@ -1,0 +1,43 @@
+.layoutContainer {
+    min-height: 100vh;
+    background: linear-gradient(135deg, hsl(var(--color-background)) 0%, hsl(var(--color-primary-light)) 100%);
+    color: hsl(var(--color-text-main));
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--transition-normal);
+}
+
+.backgroundBlob1,
+.backgroundBlob2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.backgroundBlob1 {
+    top: -10%;
+    right: -5%;
+    width: 50vh;
+    height: 50vh;
+    background-color: hsl(var(--color-primary) / 0.15);
+}
+
+.backgroundBlob2 {
+    bottom: -10%;
+    left: -5%;
+    width: 60vh;
+    height: 60vh;
+    background-color: hsl(var(--color-secondary) / 0.15);
+}
+
+.mainContent {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}

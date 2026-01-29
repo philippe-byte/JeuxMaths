@@ -1,0 +1,63 @@
+{
+    "app": {
+        "title": "JeuxMaths"
+    },
+    "home": {
+        "welcome": "Bienvenido",
+        "email_placeholder": "Su correo electrónico",
+        "play": "Jugar",
+        "stats": "Estadísticas",
+        "leaderboard": "Comparación de Jugadores",
+        "options": "Opciones / Idiomas",
+        "change_player": "Cambiar de jugador"
+    },
+    "level_select": {
+        "title": "Elige tu nivel de cuadrícula",
+        "difficulty_title": "Elige la dificultad",
+        "beginner": "Modo Principiante",
+        "beginner_desc": "Retroalimentación inmediata en cada celda.",
+        "expert": "Modo Experto",
+        "expert_desc": "Retroalimentación solo en los resultados.",
+        "simple_desc": "Una cuadrícula pequeña para calentar.",
+        "advanced_desc": "Una cuadrícula mediana con más operaciones.",
+        "complex_desc": "Una cuadrícula grande para un verdadero desafío.",
+        "simple": "Cuadrícula Simple",
+        "advanced": "Cuadrícula Avanzada",
+        "expert_grid": "Cuadrícula Experta",
+        "random_grid": "Cuadrícula Aleatoria",
+        "random_desc": "Una cuadrícula generada sobre la marcha.",
+        "back": "Atrás"
+    },
+    "game": {
+        "loading": "Cargando...",
+        "restart": "Reiniciar cuadrícula",
+        "check": "Comprobar",
+        "errors": "Errores",
+        "time": "Tiempo",
+        "candidates": "Números disponibles",
+        "victory": "¡Bien hecho!",
+        "victory_desc": "Has resuelto la cuadrícula.",
+        "next": "Siguiente cuadrícula",
+        "menu": "Menú"
+    },
+    "stats": {
+        "title": "Tus Estadísticas",
+        "games_played": "Partidas jugadas",
+        "success_rate": "Tasa de éxito",
+        "reset": "Reiniciar"
+    },
+    "options": {
+        "title": "Opciones",
+        "language": "Idioma",
+        "reset_stats": "Reiniciar estadísticas",
+        "confirm_reset": "¿Estás seguro?"
+    },
+    "leaderboard": {
+        "title": "Comparación de Jugadores",
+        "player": "Jugador",
+        "total_wins": "Victorias totales",
+        "total_plays": "Partidas jugadas",
+        "best_streak": "Mejor racha",
+        "no_players": "Aún no hay jugadores."
+    }
+}

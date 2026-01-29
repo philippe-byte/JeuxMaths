@@ -1,0 +1,63 @@
+{
+    "app": {
+        "title": "JeuxMaths"
+    },
+    "home": {
+        "welcome": "Benvenuto",
+        "email_placeholder": "Il tuo indirizzo email",
+        "play": "Gioca",
+        "stats": "Statistiche",
+        "leaderboard": "Confronto Giocatori",
+        "options": "Opzioni / Lingue",
+        "change_player": "Cambia giocatore"
+    },
+    "level_select": {
+        "title": "Scegli il tuo livello di griglia",
+        "difficulty_title": "Scegli la difficoltà",
+        "beginner": "Modalità Principiante",
+        "beginner_desc": "Feedback immediato su ogni cella.",
+        "expert": "Modalità Esperto",
+        "expert_desc": "Feedback solo sui risultati dei calcoli.",
+        "simple_desc": "Una piccola griglia per riscaldarsi.",
+        "advanced_desc": "Una griglia media con più operazioni.",
+        "complex_desc": "Una griglia grande per una vera sfida.",
+        "simple": "Griglia Semplice",
+        "advanced": "Griglia Avanzata",
+        "expert_grid": "Griglia Esperta",
+        "random_grid": "Griglia Casuale",
+        "random_desc": "Una griglia generata al volo.",
+        "back": "Indietro"
+    },
+    "game": {
+        "loading": "Caricamento...",
+        "restart": "Ricomincia griglia",
+        "check": "Controlla",
+        "errors": "Errori",
+        "time": "Tempo",
+        "candidates": "Numeri disponibili",
+        "victory": "Ben fatto!",
+        "victory_desc": "Hai risolto la griglia.",
+        "next": "Prossima griglia",
+        "menu": "Menu"
+    },
+    "stats": {
+        "title": "Le tue statistiche",
+        "games_played": "Partite giocate",
+        "success_rate": "Tasso di successo",
+        "reset": "Reimposta"
+    },
+    "options": {
+        "title": "Opzioni",
+        "language": "Lingua",
+        "reset_stats": "Reimposta statistiche",
+        "confirm_reset": "Sei sicuro?"
+    },
+    "leaderboard": {
+        "title": "Confronto Giocatori",
+        "player": "Giocatore",
+        "total_wins": "Vittorie totali",
+        "total_plays": "Partite giocate",
+        "best_streak": "Miglior serie",
+        "no_players": "Ancora nessun giocatore."
+    }
+}
