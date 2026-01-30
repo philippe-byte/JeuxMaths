@@ -39,7 +39,18 @@ export function useUser() {
         if (currentEmail) {
             const users = getAllUsers();
             if (users[currentEmail]) {
-                setUser(users[currentEmail]);
+                let u = users[currentEmail];
+
+                // Migration: Rename old 'expert' mode to 'advanced' once
+                const migratedKey = 'jeuxmaths_migrated_expert_v1_to_advanced';
+                if (u.correctionMode === 'expert' && !localStorage.getItem(migratedKey)) {
+                    u = { ...u, correctionMode: 'advanced' };
+                    users[u.email] = u;
+                    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+                    localStorage.setItem(migratedKey, 'true');
+                }
+
+                setUser(u);
             }
         }
         setLoading(false);

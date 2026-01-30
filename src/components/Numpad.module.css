@@ -1,0 +1,61 @@
+
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 1rem;
+    background: hsl(var(--color-surface-glass));
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.key {
+    height: 3.5rem;
+    border-radius: var(--radius-lg);
+    background: white;
+    border: 1px solid hsl(var(--circle-border));
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: hsl(var(--color-text-main));
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.key:hover {
+    background: hsl(var(--color-primary-light) / 0.1);
+    border-color: hsl(var(--color-primary));
+    transform: translateY(-2px);
+}
+
+.key:active {
+    transform: scale(0.95);
+}
+
+.keySpecial {
+    background: hsl(var(--color-surface-glass));
+    font-size: 1rem;
+    color: hsl(var(--color-text-muted));
+}
+
+.keyDelete {
+    color: hsl(var(--color-error));
+}
+
+.keyOk {
+    background: hsl(var(--color-primary));
+    color: white;
+    grid-column: span 3;
+    margin-top: 0.25rem;
+}
+
+.keyOk:hover {
+    background: hsl(var(--color-primary) / 0.9);
+}

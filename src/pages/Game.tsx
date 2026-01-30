@@ -6,6 +6,7 @@ import { getGrids } from '../lib/grid';
 import { useUser } from '../lib/userState';
 import { GridBoard } from '../components/GridBoard';
 import { NumberDock } from '../components/NumberDock';
+import { Numpad } from '../components/Numpad';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -34,51 +35,41 @@ export const Game: React.FC = () => {
     // Extract equations from the grid structure
     const equations = useMemo(() => {
         if (!gridData) return [];
-        const found: Equation[] = [];
+        const found: { cellIds: string[] }[] = [];
 
-        // Scan for horizontal equations: num op num = res
         const gridRows = gridData.rows;
         const gridCols = gridData.cols;
 
-        for (let r = 0; r < gridRows; r++) {
-            for (let c = 0; c <= gridCols - 5; c++) {
-                const slice = [0, 1, 2, 3, 4].map(dc => cells.find(cell => cell.row === r && cell.col === c + dc));
-                if (slice.every(x => x) &&
-                    (slice[1]?.type === 'operator') &&
-                    (slice[3]?.type === 'equal') &&
-                    (slice[0]?.type.startsWith('number') && slice[2]?.type.startsWith('number') && slice[4]?.type.startsWith('number'))) {
-                    found.push({
-                        operand1: slice[0]!.id,
-                        operator: slice[1]!.value,
-                        operand2: slice[2]!.id,
-                        result: slice[4]!.id
-                    });
+        // Horizontal Equations
+        for (let ri = 0; ri <= gridRows; ri += 2) {
+            const rowCells = cells.filter(c => c.row === ri).sort((a, b) => a.col - b.col);
+            if (rowCells.length > 0) {
+                const types = rowCells.map(c => c.type);
+                const lastEqualIdx = types.lastIndexOf('equal');
+                if (lastEqualIdx !== -1 && lastEqualIdx < rowCells.length - 1) {
+                    const eqCellIds = rowCells.slice(0, lastEqualIdx + 2).map(c => c.id);
+                    found.push({ cellIds: eqCellIds });
                 }
             }
         }
 
-        // Scan for vertical equations
-        for (let c = 0; c < gridCols; c++) {
-            for (let r = 0; r <= gridRows - 5; r++) {
-                const slice = [0, 1, 2, 3, 4].map(dr => cells.find(cell => cell.row === r + dr && cell.col === c));
-                if (slice.every(x => x) &&
-                    (slice[1]?.type === 'operator') &&
-                    (slice[3]?.type === 'equal') &&
-                    (slice[0]?.type.startsWith('number') && slice[2]?.type.startsWith('number') && slice[4]?.type.startsWith('number'))) {
-                    found.push({
-                        operand1: slice[0]!.id,
-                        operator: slice[1]!.value,
-                        operand2: slice[2]!.id,
-                        result: slice[4]!.id
-                    });
+        // Vertical Equations
+        for (let ci = 0; ci <= gridCols; ci += 2) {
+            const colCells = cells.filter(c => c.col === ci).sort((a, b) => a.row - b.row);
+            if (colCells.length > 0) {
+                const types = colCells.map(c => c.type);
+                const lastEqualIdx = types.lastIndexOf('equal');
+                if (lastEqualIdx !== -1 && lastEqualIdx < colCells.length - 1) {
+                    const eqCellIds = colCells.slice(0, lastEqualIdx + 2).map(c => c.id);
+                    found.push({ cellIds: eqCellIds });
                 }
             }
         }
         return found;
-    }, [gridData, cells.length]); // Only recalc on initial load or if structure changes (unlikely)
+    }, [gridData, cells]);
 
     // Result cell IDs for expert mode
-    const resultCellIds = useMemo(() => new Set(equations.map(eq => eq.result)), [equations]);
+    const resultCellIds = useMemo(() => new Set(equations.map(eq => eq.cellIds[eq.cellIds.length - 1])), [equations]);
 
     useEffect(() => {
         loadGrid();
@@ -115,20 +106,61 @@ export const Game: React.FC = () => {
         setSelectedCellId(cellId);
     };
 
-    const validateMath = (v1: string, op: string, v2: string, res: string): boolean => {
-        if (!v1 || !v2 || !res) return false;
-        const n1 = parseInt(v1);
-        const n2 = parseInt(v2);
-        const nr = parseInt(res);
-        if (isNaN(n1) || isNaN(n2) || isNaN(nr)) return false;
+    const validateFullEquation = (cellIds: string[], currentCells: Cell[]): boolean => {
+        const eqCells = cellIds.map(id => currentCells.find(c => c.id === id)).filter(Boolean) as Cell[];
+        if (eqCells.length < 3) return false;
 
-        switch (op) {
-            case '+': return n1 + n2 === nr;
-            case '-': return n1 - n2 === nr;
-            case '×': case '*': return n1 * n2 === nr;
-            case '÷': case '/': return n1 / n2 === nr;
-            default: return false;
+        // Last cell is the result
+        const resultCell = eqCells[eqCells.length - 1];
+        if (!resultCell.value) return false;
+        const resultValue = parseInt(resultCell.value);
+
+        // Evaluate Left-To-Right
+        let currentTotal = parseInt(eqCells[0].value);
+        if (isNaN(currentTotal)) return false;
+
+        for (let i = 1; i < eqCells.length - 2; i += 2) {
+            const op = eqCells[i].value;
+            const nextVal = parseInt(eqCells[i + 1].value);
+            if (isNaN(nextVal)) return false;
+
+            switch (op) {
+                case '+': currentTotal += nextVal; break;
+                case '-': currentTotal -= nextVal; break;
+                case '×': case '*': currentTotal *= nextVal; break;
+                case '÷': case '/':
+                    if (nextVal === 0) return false;
+                    currentTotal /= nextVal;
+                    break;
+                default: return false;
+            }
         }
+
+        return currentTotal === resultValue;
+    };
+
+    const updateEquationStatus = (newCells: Cell[]) => {
+        if (correctionMode === 'beginner') return;
+
+        equations.forEach(eq => {
+            const resCellId = eq.cellIds[eq.cellIds.length - 1];
+            const resCell = newCells.find(c => c.id === resCellId);
+            if (resCell) {
+                const allFilled = eq.cellIds.every(id => {
+                    const c = newCells.find(x => x.id === id);
+                    return c && c.value !== '';
+                });
+
+                if (allFilled) {
+                    const ok = validateFullEquation(eq.cellIds, newCells);
+                    resCell.isCorrect = ok;
+                    resCell.isError = !ok;
+                } else {
+                    resCell.isCorrect = false;
+                    resCell.isError = false;
+                }
+            }
+        });
     };
 
     const handleNumberSelect = (num: number) => {
@@ -142,43 +174,64 @@ export const Game: React.FC = () => {
         const valStr = num.toString();
         cell.value = valStr;
 
-        // Perform validation
         if (correctionMode === 'beginner') {
-            // Beginner: Immediate feedback against solution
             const isCorrect = valStr === cell.solution;
             cell.isCorrect = isCorrect;
             cell.isError = !isCorrect;
             if (!isCorrect) setErrors(prev => prev + 1);
         } else {
-            // Expert: Feedback ONLY for result cells, based on current mathematical logic
-            // We need to re-evaluate all equations this cell belongs to
-            newCells.forEach(c => {
-                c.isCorrect = false;
-                c.isError = false;
-            });
-
-            equations.forEach(eq => {
-                const c1 = newCells.find(c => c.id === eq.operand1);
-                const c2 = newCells.find(c => c.id === eq.operand2);
-                const cr = newCells.find(c => c.id === eq.result);
-
-                if (c1?.value && c2?.value && cr?.value) {
-                    const ok = validateMath(c1.value, eq.operator, c2.value, cr.value);
-                    cr.isCorrect = ok;
-                    cr.isError = !ok;
-                    // Note: If result cell is a shared cell, it might be correct for one eq and wrong for another.
-                    // In that case, we mark it error if ANY eq it belongs to is wrong.
-                }
-            });
-
-            // Increment error if the newly placed number makes an equation mathematicaly wrong
-            // (Only for result cells in expert mode?) 
-            // Actually, let's keep errors simple or skip for expert if it's too complex.
+            updateEquationStatus(newCells);
         }
 
         setSelectedCellId(null);
         setCells(newCells);
         checkVictory(newCells);
+    };
+
+    const handleDigitEntry = (digit: string) => {
+        if (!selectedCellId || gameStatus !== 'playing') return;
+        const cellIndex = cells.findIndex(c => c.id === selectedCellId);
+        if (cellIndex === -1) return;
+
+        const newCells = [...cells];
+        const cell = newCells[cellIndex];
+
+        if (cell.value.length < 4) {
+            cell.value = cell.value + digit;
+            setCells(newCells);
+        }
+    };
+
+    const handleDeleteDigit = () => {
+        if (!selectedCellId || gameStatus !== 'playing') return;
+        const cellIndex = cells.findIndex(c => c.id === selectedCellId);
+        if (cellIndex === -1) return;
+
+        const newCells = [...cells];
+        const cell = newCells[cellIndex];
+        cell.value = cell.value.slice(0, -1);
+        setCells(newCells);
+    };
+
+    const handleClearCell = () => {
+        if (!selectedCellId || gameStatus !== 'playing') return;
+        const cellIndex = cells.findIndex(c => c.id === selectedCellId);
+        if (cellIndex === -1) return;
+
+        const newCells = [...cells];
+        const cell = newCells[cellIndex];
+        cell.value = '';
+        setCells(newCells);
+    };
+
+    const handleConfirm = () => {
+        if (!selectedCellId) return;
+
+        const newCells = [...cells];
+        updateEquationStatus(newCells);
+        setCells(newCells);
+        checkVictory(newCells);
+        setSelectedCellId(null);
     };
 
     const checkVictory = (currentCells: Cell[]) => {
@@ -189,14 +242,9 @@ export const Game: React.FC = () => {
             allCorrect = inputs.every(c => c.isCorrect);
         } else {
             // Expert victory: All inputs filled AND all equations mathematically correct
-            const allFilled = inputs.every(c => c.value !== '');
+            const allFilled = currentCells.filter(c => c.type.startsWith('number')).every(c => c.value !== '');
             if (allFilled) {
-                allCorrect = equations.every(eq => {
-                    const c1 = currentCells.find(c => c.id === eq.operand1);
-                    const c2 = currentCells.find(c => c.id === eq.operand2);
-                    const cr = currentCells.find(c => c.id === eq.result);
-                    return validateMath(c1!.value, eq.operator, c2!.value, cr!.value);
-                });
+                allCorrect = equations.every(eq => validateFullEquation(eq.cellIds, currentCells));
             }
         }
 
@@ -230,13 +278,22 @@ export const Game: React.FC = () => {
                 <div className="flex flex-col items-center flex-1">
                     <h2 className="text-xl font-bold text-center capitalize leading-tight">{t(`level_select.${levelKey}`)}</h2>
                     <div className="text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium">
-                        {t(`level_select.${correctionMode}`)}
+                        {correctionMode === 'beginner' && t('level_select.beginner')}
+                        {correctionMode === 'advanced' && t('level_select.advanced_level')}
+                        {correctionMode === 'expert' && t('level_select.expert_level')}
                     </div>
                 </div>
                 <button className="btn btn-secondary py-2 px-4 text-sm" onClick={loadGrid}>
                     <RotateCcw size={16} /> {t('game.reset')}
                 </button>
             </header>
+
+            {/* Zone 1.5: Instruction Message */}
+            <div className="flex-none px-4 text-center">
+                <p className="text-xs sm:text-sm font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
+                    {t('game.instruction')}
+                </p>
+            </div>
 
             {/* Zone 2: GridBoard (Center) - Flexible and Centered */}
             <main className="flex-1 flex items-center justify-center overflow-auto p-2 sm:p-4 md:p-8 min-h-0 w-full">
@@ -254,15 +311,27 @@ export const Game: React.FC = () => {
 
             {/* Zone 3: Numbers & Info (Bottom) - Fixed to bottom */}
             <footer className="flex-none w-full flex flex-col items-center p-4 md:p-6 bg-[hsl(var(--color-background)/0.9)] backdrop-blur-md border-t border-[hsl(var(--color-text-muted)/0.15)] z-10">
-                <div className="w-full max-w-md flex flex-col items-center">
+                <div className="w-full max-w-sm flex flex-col items-center overflow-auto max-h-[40vh]">
                     <div className="text-center mb-3 font-bold text-[10px] tracking-[0.2em] uppercase opacity-70">
-                        {t('game.candidates')}
+                        {correctionMode === 'expert' ? t('game.keyboard') : t('game.candidates')}
                     </div>
-                    <NumberDock
-                        numbers={gridData.availableNumbers}
-                        onSelectNumber={handleNumberSelect}
-                        disabled={gameStatus === 'won'}
-                    />
+
+                    {correctionMode === 'expert' ? (
+                        <Numpad
+                            onDigit={handleDigitEntry}
+                            onDelete={handleDeleteDigit}
+                            onClear={handleClearCell}
+                            onConfirm={handleConfirm}
+                            disabled={gameStatus === 'won'}
+                        />
+                    ) : (
+                        <NumberDock
+                            numbers={gridData.availableNumbers}
+                            onSelectNumber={handleNumberSelect}
+                            disabled={gameStatus === 'won'}
+                        />
+                    )}
+
                     <div className="mt-4 text-[10px] font-medium text-[hsl(var(--color-text-muted))] uppercase tracking-tight">
                         {t('game.errors')}: <span className={errors > 0 ? "text-[hsl(var(--color-error))]" : ""}>{errors}</span>
                     </div>

@@ -1,7 +1,7 @@
 export type Operator = '+' | '-' | '×' | '÷';
 export type CellType = 'number_fixed' | 'number_input' | 'operator' | 'equal' | 'empty';
 export type Level = 'simple' | 'advanced' | 'expert';
-export type CorrectionMode = 'beginner' | 'expert';
+export type CorrectionMode = 'beginner' | 'advanced' | 'expert';
 
 export interface Cell {
     id: string;

@@ -12,7 +12,38 @@ export const Options: React.FC = () => {
     const [theme, setTheme] = React.useState(localStorage.getItem('app-theme') || 'winter');
     const [copied, setCopied] = useState(false);
 
-    const initialPrompt = `"Je travaille sur le fichier src/lib/grid.ts. Je souhaite ajouter [X] nouvelles grilles pour chaque niveau (Simple, Advanced, Expert).\n\nSTRUCTURE DU FICHIER :\nLes grilles sont définies par une matrice 'm' de nombres, un tableau 'oh' (opérateurs horizontaux) et 'ov' (opérateurs verticaux).\n- Simple : Matrice m de 3x4 (3 lignes, 4 colonnes). 4ème colonne = résultat ligne, 3ème ligne = résultat colonne.\n- Advanced : Matrice m de 4x6. RÈGLE : Utilise +, -, * (PAS DE DIVISION).\n- Expert : Matrice m de 5x6. RÈGLE : Utilise obligatoirement les 4 opérateurs (+, -, *, /).\n\nCONSIGNES DE SÉCURITÉ MATHÉMATIQUE (CRITIQUE) :\n1. COHÉRENCE TOTALE : Le nombre m[last][last] doit valider les deux équations croisées.\n2. CALCULS ENTIERS : Toutes les divisions (/) doivent donner des résultats sans virgule.\n3. RÈGLE DE LECTURE : Les opérations se lisent strictement de gauche à droite et de haut en bas (aucune priorité multiplicative).\n4. VARIÉTÉ : Mélange bien les opérateurs pour éviter les répétitions.\n\nPROCÉDURE DE GÉNÉRATION :\n- Génère d'abord les nombres internes, puis déduis les résultats.\n- Vérifie deux fois le croisement final avant de répondre.\n\nFORMAT DE SORTIE :\nDonne-moi uniquement les objets TypeScript à ajouter aux tableaux seeds : { m: [[...]], oh: [[...]], ov: [[...]] }."`;
+    const initialPrompt = `Je souhaite générer [X] nouvelles grilles mathématiques pour chaque niveau (Simple, Advanced, Expert).
+
+STRUCTURE DES GRILLES :
+Les grilles sont définies par :
+- 'm' : matrice de nombres
+- 'oh' : opérateurs horizontaux (+, -, *, /)
+- 'ov' : opérateurs verticaux (+, -, *, /)
+
+DIMENSIONS PAR NIVEAU :
+- Simple : m[3][4] (3 lignes × 4 colonnes)
+- Advanced : m[4][6] (4 lignes × 6 colonnes) - SANS division
+- Expert : m[5][6] (5 lignes × 6 colonnes) - AVEC les 4 opérateurs
+
+RÈGLES MATHÉMATIQUES CRITIQUES :
+1. ÉVALUATION GAUCHE-À-DROITE : Aucune priorité opératoire (pas de PEMDAS)
+   Exemple : 5 + 3 * 2 = (5 + 3) * 2 = 16, PAS 11
+2. COHÉRENCE DU CROISEMENT : Le nombre en bas à droite (m[last][last]) DOIT être le résultat exact de :
+   - L'équation horizontale de la dernière ligne
+   - L'équation verticale de la dernière colonne
+3. DIVISIONS ENTIÈRES : Toute division doit donner un résultat entier (pas de décimales)
+4. VARIÉTÉ : Mélanger les opérateurs pour éviter la monotonie
+
+ALGORITHME DE GÉNÉRATION :
+1. Remplir aléatoirement les nombres internes (pas les résultats)
+2. Choisir aléatoirement les opérateurs
+3. Calculer TOUS les résultats (dernière ligne ET dernière colonne) avec évaluation LTR
+4. VÉRIFIER le croisement : m[last][last] doit être identique pour les deux équations
+5. Si incohérent, régénérer jusqu'à obtenir une grille valide
+
+FORMAT DE SORTIE :
+Retourne uniquement les objets TypeScript :
+{ m: [[...]], oh: [[...]], ov: [[...]] }`;
 
     const [promptText, setPromptText] = useState(initialPrompt);
 
@@ -84,7 +115,7 @@ export const Options: React.FC = () => {
                 <div className="card glass-panel p-6 sm:p-8 w-full">
                     <h3 className="text-xl font-bold mb-10 flex items-center gap-2">
                         <Palette size={20} className="text-[hsl(var(--color-primary))]" />
-                        Thème visuel
+                        {t('options.theme')}
                     </h3>
                     <div className="flex justify-center">
                         <div className="grid grid-cols-2 gap-6 w-full max-w-lg mx-auto">
@@ -118,21 +149,21 @@ export const Options: React.FC = () => {
                 <div className="card glass-panel p-6 sm:p-8 w-full">
                     <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
                         <Info size={20} className="text-[hsl(var(--color-primary))]" />
-                        Instructions IA (Grilles)
+                        {t('options.ai_instructions')}
                     </h3>
 
                     <div className="bg-black/5 rounded-xl border border-black/10 overflow-hidden">
                         <div className="pt-6 px-6 pb-10 border-b border-black/10 bg-black/5 flex items-center justify-between">
                             <p className="font-bold text-sm text-[hsl(var(--color-primary))] flex items-center gap-2">
                                 <Plus size={16} className="text-[hsl(var(--color-primary))]" />
-                                Prompt pour l'ajout de nouvelles grilles par une IA
+                                {t('options.ai_prompt_title')}
                             </p>
                             <button
                                 onClick={handleCopy}
                                 className={`btn btn-secondary py-2 px-5 text-xs transition-all flex items-center gap-2 h-10 ${copied ? 'bg-[hsl(var(--color-success)/0.1)] border-[hsl(var(--color-success)/0.5)] text-[hsl(var(--color-success))] shadow-inner' : 'hover:bg-white shadow-sm'}`}
                             >
                                 {copied ? <Check size={14} /> : <Copy size={14} />}
-                                {copied ? "Copié !" : "Copier"}
+                                {copied ? t('options.copied') : t('options.copy')}
                             </button>
                         </div>
                         <div className="p-6">
@@ -145,7 +176,7 @@ export const Options: React.FC = () => {
 
                             <div className="mt-8 pt-4 border-t border-black/5">
                                 <p className="text-xs sm:text-sm opacity-60">
-                                    <span className="font-bold text-[hsl(var(--color-primary))]">N.B. :</span> Pensez à remplacer <span className="font-mono bg-black/5 px-1 rounded">[X]</span> par le nombre de grilles souhaité directement dans le texte ci-dessus avant de copier.
+                                    <span className="font-bold text-[hsl(var(--color-primary))]">{t('options.nb_label')}</span> {t('options.nb_instruction')}
                                 </p>
                             </div>
                         </div>

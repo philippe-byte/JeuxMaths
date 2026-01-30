@@ -45,7 +45,20 @@ export const LevelSelect: React.FC = () => {
                             />
                             <div className="flex-1">
                                 <div className="font-bold">{t('level_select.beginner')}</div>
-                                <div className="text-sm text-[hsl(var(--color-text-muted))]">{t('level_select.beginner_desc')}</div>
+                                <div className="text-sm text-[hsl(var(--color-text-muted))] text-xs">{t('level_select.beginner_desc')}</div>
+                            </div>
+                        </label>
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                            <input
+                                type="radio"
+                                name="difficulty"
+                                checked={user.correctionMode === 'advanced'}
+                                onChange={() => handleModeChange('advanced')}
+                                style={{ width: '1.25rem', height: '1.25rem', accentColor: 'hsl(var(--color-primary))' }}
+                            />
+                            <div className="flex-1">
+                                <div className="font-bold">{t('level_select.advanced_level')}</div>
+                                <div className="text-sm text-[hsl(var(--color-text-muted))] text-xs">{t('level_select.advanced_level_desc')}</div>
                             </div>
                         </label>
                         <label className="flex items-center gap-3 cursor-pointer group">
@@ -57,8 +70,8 @@ export const LevelSelect: React.FC = () => {
                                 style={{ width: '1.25rem', height: '1.25rem', accentColor: 'hsl(var(--color-primary))' }}
                             />
                             <div className="flex-1">
-                                <div className="font-bold">{t('level_select.expert')}</div>
-                                <div className="text-sm text-[hsl(var(--color-text-muted))]">{t('level_select.expert_desc')}</div>
+                                <div className="font-bold">{t('level_select.expert_level')}</div>
+                                <div className="text-sm text-[hsl(var(--color-text-muted))] text-xs">{t('level_select.expert_level_desc')}</div>
                             </div>
                         </label>
                     </div>

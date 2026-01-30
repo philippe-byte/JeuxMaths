@@ -49,7 +49,7 @@ export const AddLanguage: React.FC = () => {
 
     const saveManual = () => {
         if (!newLangName || !newLangCode) {
-            alert("Veuillez fournir un nom et un code pour la langue.");
+            alert(t('options.provide_name_code'));
             return;
         }
         const nested = unflattenObject(manualTranslations);
@@ -72,7 +72,7 @@ export const AddLanguage: React.FC = () => {
                 {/* 1. Choice area with large spacing */}
                 <div className="card glass-panel p-10 flex flex-col items-center">
                     <p className="text-lg opacity-70 mb-12 text-center max-w-lg">
-                        Choisissez une méthode pour ajouter une nouvelle langue à l'application. Vous pouvez importer un fichier de traduction existant ou en créer un nouveau manuellement.
+                        {t('options.add_lang_desc')}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 w-full max-w-2xl mt-24">
@@ -102,11 +102,11 @@ export const AddLanguage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row gap-6 mb-10">
                             <div className="flex-1">
                                 <label className="text-xs uppercase tracking-widest opacity-60 mb-2 block font-bold">{t('options.lang_name')}</label>
-                                <input className="input-field" value={newLangName} onChange={e => setNewLangName(e.target.value)} placeholder="ex: Allemand" />
+                                <input className="input-field" value={newLangName} onChange={e => setNewLangName(e.target.value)} placeholder={t('options.ex_lang_name')} />
                             </div>
                             <div className="flex-1">
                                 <label className="text-xs uppercase tracking-widest opacity-60 mb-2 block font-bold">{t('options.lang_code')}</label>
-                                <input className="input-field" value={newLangCode} onChange={e => setNewLangCode(e.target.value)} placeholder="ex: de" />
+                                <input className="input-field" value={newLangCode} onChange={e => setNewLangCode(e.target.value)} placeholder={t('options.ex_lang_code')} />
                             </div>
                         </div>
 

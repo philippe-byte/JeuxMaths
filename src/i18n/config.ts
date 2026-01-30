@@ -5,6 +5,8 @@ import fr from './locales/fr.json';
 import en from './locales/en.json';
 import es from './locales/es.json';
 import it from './locales/it.json';
+import de from './locales/de.json';
+import pt from './locales/pt.json';
 
 const CUSTOM_LANGS_KEY = 'jeuxmaths_custom_langs';
 
@@ -18,6 +20,8 @@ const resources: any = {
   en: { translation: en },
   es: { translation: es },
   it: { translation: it },
+  de: { translation: de },
+  pt: { translation: pt },
 };
 
 // Load custom languages from localStorage
@@ -47,10 +51,12 @@ export const addCustomLanguage = (code: string, name: string, translations: any)
 
 export const getAvailableLanguages = () => {
   const base = [
-    { code: 'fr', name: 'Français' },
+    { code: 'de', name: 'Deutsch' },
     { code: 'en', name: 'English' },
     { code: 'es', name: 'Español' },
-    { code: 'it', name: 'Italiano' }
+    { code: 'fr', name: 'Français' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Português' }
   ];
   const custom = getCustomLanguages();
   const customList = Object.keys(custom).map(code => ({
