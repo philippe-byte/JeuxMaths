@@ -34,12 +34,12 @@ RÈGLES MATHÉMATIQUES CRITIQUES :
 3. DIVISIONS ENTIÈRES : Toute division doit donner un résultat entier (pas de décimales)
 4. VARIÉTÉ : Mélanger les opérateurs pour éviter la monotonie
 
-ALGORITHME DE GÉNÉRATION :
-1. Remplir aléatoirement les nombres internes (pas les résultats)
-2. Choisir aléatoirement les opérateurs
-3. Calculer TOUS les résultats (dernière ligne ET dernière colonne) avec évaluation LTR
-4. VÉRIFIER le croisement : m[last][last] doit être identique pour les deux équations
-5. Si incohérent, régénérer jusqu'à obtenir une grille valide
+ALGORITHME DE GÉNÉRATION INTELLIGENT :
+1. Remplir aléatoirement les nombres internes (1-12)
+2. Choisir les opérateurs INTELLIGEMMENT : Si une division tombe sur un résultat non-entier, changer d'opérateur immédiatement.
+3. Calculer les résultats (lignes et colonnes) en mode LTR (Left-To-Right).
+4. VÉRIFIER le croisement : m[last][last] doit être identique pour les deux sens.
+5. Si incohérent, régénérer jusqu'à obtenir une grille valide.
 
 FORMAT DE SORTIE :
 Retourne uniquement les objets TypeScript :

@@ -271,34 +271,35 @@ export const Game: React.FC = () => {
     return (
         <div className="flex flex-col relative bg-[hsl(var(--color-background))]" style={{ height: '100dvh', maxHeight: '100dvh', overflow: 'hidden' }}>
             {/* Zone 1: Header (Top) - Fixed size */}
-            <header className="flex-none p-4 sm:p-6 flex items-center justify-between z-10 max-w-5xl mx-auto w-full">
-                <button className="btn btn-secondary py-2 px-4 text-sm" onClick={() => navigate('/level')}>
-                    <ArrowLeft size={16} /> {t('level_select.back')}
+            {/* Zone 1: Header (Top) - Fixed size */}
+            <header className="flex-none p-2 sm:p-4 flex items-center justify-between z-10 max-w-5xl mx-auto w-full">
+                <button className="btn btn-secondary py-2 px-3 text-sm h-10 w-10 sm:w-auto sm:h-auto flex items-center justify-center" onClick={() => navigate('/level')}>
+                    <ArrowLeft size={18} /> <span className="hidden md:inline ml-2">{t('level_select.back')}</span>
                 </button>
-                <div className="flex flex-col items-center flex-1">
-                    <h2 className="text-xl font-bold text-center capitalize leading-tight">{t(`level_select.${levelKey}`)}</h2>
-                    <div className="text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium">
+                <div className="flex flex-col items-center flex-1 mx-2">
+                    <h2 className="text-base sm:text-xl font-bold text-center capitalize leading-tight">{t(`level_select.${levelKey}`)}</h2>
+                    <div className="text-[9px] sm:text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium mt-0.5">
                         {correctionMode === 'beginner' && t('level_select.beginner')}
                         {correctionMode === 'advanced' && t('level_select.advanced_level')}
                         {correctionMode === 'expert' && t('level_select.expert_level')}
                     </div>
                 </div>
-                <button className="btn btn-secondary py-2 px-4 text-sm" onClick={loadGrid}>
-                    <RotateCcw size={16} /> {t('game.reset')}
+                <button className="btn btn-secondary py-2 px-3 text-sm h-10 w-10 sm:w-auto sm:h-auto flex items-center justify-center" onClick={loadGrid}>
+                    <RotateCcw size={18} /> <span className="hidden md:inline ml-2">{t('game.reset')}</span>
                 </button>
             </header>
 
             {/* Zone 1.5: Instruction Message */}
             <div className="flex-none px-4 text-center">
-                <p className="text-xs sm:text-sm font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
+                <p className="text-[10px] sm:text-sm font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
                     {t('game.instruction')}
                 </p>
             </div>
 
             {/* Zone 2: GridBoard (Center) - Flexible and Centered */}
-            <main className="flex-1 flex items-center justify-center overflow-auto p-2 sm:p-4 md:p-8 min-h-0 w-full">
+            <main className="flex-1 flex items-center justify-center overflow-auto p-1 min-h-0 w-full">
                 <div className="w-full h-full flex items-center justify-center overflow-auto">
-                    <div className="transform origin-center scale-[0.7] sm:scale-85 md:scale-95 lg:scale-100 transition-transform duration-300">
+                    <div className="transform origin-center scale-[0.55] sm:scale-75 md:scale-90 lg:scale-100 transition-transform duration-300">
                         <GridBoard
                             cells={cells}
                             selectedCellId={selectedCellId}
