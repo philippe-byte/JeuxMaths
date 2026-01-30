@@ -266,40 +266,39 @@ export const Game: React.FC = () => {
 
     if (!gridData) return <div className="text-center p-8">{t('game.loading')}</div>;
 
-    const levelKey = gridData.id.includes('excel') ? (gridData.level === 'simple' ? 'simple' : gridData.level === 'advanced' ? 'advanced' : 'expert_grid') : gridData.level;
+    const levelKey = gridData.id.includes('excel') ? (gridData.level === 'simple' ? 'simple' : gridData.level === 'advanced' ? 'advanced' : 'expert_grid') : (gridData.level === 'expert' ? 'expert_grid' : gridData.level);
 
     return (
         <div className="flex flex-col relative bg-[hsl(var(--color-background))]" style={{ height: '100dvh', maxHeight: '100dvh', overflow: 'hidden' }}>
-            {/* Zone 1: Header (Top) - Fixed size */}
-            {/* Zone 1: Header (Top) - Fixed size */}
-            <header className="flex-none p-2 sm:p-4 flex items-center justify-between z-10 max-w-5xl mx-auto w-full">
-                <button className="btn btn-secondary py-2 px-3 text-sm h-10 w-10 sm:w-auto sm:h-auto flex items-center justify-center" onClick={() => navigate('/level')}>
-                    <ArrowLeft size={18} /> <span className="hidden md:inline ml-2">{t('level_select.back')}</span>
+            {/* Zone 1: Header (Top) - Fixed size - Minimalist for Mobile */}
+            <header className="flex-none p-2 flex items-center justify-between z-10 max-w-5xl mx-auto w-full h-14">
+                <button className="btn btn-secondary h-10 w-10 flex items-center justify-center p-0 rounded-full" onClick={() => navigate('/level')} title={t('level_select.back')}>
+                    <ArrowLeft size={20} />
                 </button>
-                <div className="flex flex-col items-center flex-1 mx-2">
-                    <h2 className="text-base sm:text-xl font-bold text-center capitalize leading-tight">{t(`level_select.${levelKey}`)}</h2>
-                    <div className="text-[9px] sm:text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium mt-0.5">
+                <div className="flex flex-col items-center flex-1 mx-2 overflow-hidden">
+                    <h2 className="text-base font-bold text-center capitalize leading-tight truncate w-full">{t(`level_select.${levelKey}`)}</h2>
+                    <div className="text-[10px] text-center text-[hsl(var(--color-text-muted))] uppercase tracking-widest font-medium mt-0.5 truncate w-full">
                         {correctionMode === 'beginner' && t('level_select.beginner')}
                         {correctionMode === 'advanced' && t('level_select.advanced_level')}
                         {correctionMode === 'expert' && t('level_select.expert_level')}
                     </div>
                 </div>
-                <button className="btn btn-secondary py-2 px-3 text-sm h-10 w-10 sm:w-auto sm:h-auto flex items-center justify-center" onClick={loadGrid}>
-                    <RotateCcw size={18} /> <span className="hidden md:inline ml-2">{t('game.reset')}</span>
+                <button className="btn btn-secondary h-10 w-10 flex items-center justify-center p-0 rounded-full" onClick={loadGrid} title={t('game.reset')}>
+                    <RotateCcw size={20} />
                 </button>
             </header>
 
             {/* Zone 1.5: Instruction Message */}
             <div className="flex-none px-4 text-center">
-                <p className="text-[10px] sm:text-sm font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
+                <p className="text-[10px] sm:text-xs font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
                     {t('game.instruction')}
                 </p>
             </div>
 
             {/* Zone 2: GridBoard (Center) - Flexible and Centered */}
             <main className="flex-1 flex items-center justify-center overflow-auto p-1 min-h-0 w-full">
-                <div className="w-full h-full flex items-center justify-center overflow-auto">
-                    <div className="transform origin-center scale-[0.55] sm:scale-75 md:scale-90 lg:scale-100 transition-transform duration-300">
+                <div className="w-full h-full flex items-center justify-center">
+                    <div className="transform origin-center scale-[0.45] sm:scale-75 md:scale-90 lg:scale-100 transition-transform duration-300">
                         <GridBoard
                             cells={cells}
                             selectedCellId={selectedCellId}
@@ -311,11 +310,13 @@ export const Game: React.FC = () => {
             </main>
 
             {/* Zone 3: Numbers & Info (Bottom) - Fixed to bottom */}
-            <footer className="flex-none w-full flex flex-col items-center p-4 md:p-6 bg-[hsl(var(--color-background)/0.9)] backdrop-blur-md border-t border-[hsl(var(--color-text-muted)/0.15)] z-10">
-                <div className="w-full max-w-sm flex flex-col items-center overflow-auto max-h-[40vh]">
-                    <div className="text-center mb-3 font-bold text-[10px] tracking-[0.2em] uppercase opacity-70">
-                        {correctionMode === 'expert' ? t('game.keyboard') : t('game.candidates')}
-                    </div>
+            <footer className="flex-none w-full flex flex-col items-center p-2 sm:p-4 bg-[hsl(var(--color-background)/0.95)] backdrop-blur-md border-t border-[hsl(var(--color-text-muted)/0.15)] z-10 pb-4 sm:pb-6">
+                <div className="w-full max-w-sm flex flex-col items-center">
+                    {correctionMode !== 'expert' && (
+                        <div className="text-center mb-1 font-bold text-[9px] tracking-[0.2em] uppercase opacity-70">
+                            {t('game.candidates')}
+                        </div>
+                    )}
 
                     {correctionMode === 'expert' ? (
                         <Numpad

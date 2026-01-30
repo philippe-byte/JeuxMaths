@@ -1,20 +1,17 @@
-
 .numpad {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    padding: 1rem;
-    background: hsl(var(--color-surface-glass));
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: transparent;
     border-radius: var(--radius-xl);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     width: 100%;
-    max-width: 280px;
+    max-width: 320px;
     margin: 0 auto;
 }
 
 .key {
-    height: 3.5rem;
+    height: 3rem;
     border-radius: var(--radius-lg);
     background: white;
     border: 1px solid hsl(var(--circle-border));
@@ -52,8 +49,9 @@
 .keyOk {
     background: hsl(var(--color-primary));
     color: white;
-    grid-column: span 3;
+    grid-column: span 4;
     margin-top: 0.25rem;
+    height: 3.5rem;
 }
 
 .keyOk:hover {
