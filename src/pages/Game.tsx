@@ -139,8 +139,20 @@ export const Game: React.FC = () => {
         return currentTotal === resultValue;
     };
 
-    const updateEquationStatus = (newCells: Cell[]) => {
-        if (correctionMode === 'beginner') return;
+    const updateEquationStatus = (newCells: Cell[], prevCells?: Cell[]): number => {
+        // Return number of newly detected errors (transition from not-error -> error)
+        if (correctionMode === 'beginner') return 0;
+
+        const prevErrorSet = new Set<string>();
+        if (prevCells) {
+            equations.forEach(eq => {
+                const prevResId = eq.cellIds[eq.cellIds.length - 1];
+                const prevRes = prevCells.find(c => c.id === prevResId);
+                if (prevRes && prevRes.isError) prevErrorSet.add(prevResId);
+            });
+        }
+
+        let newErrorCount = 0;
 
         equations.forEach(eq => {
             const resCellId = eq.cellIds[eq.cellIds.length - 1];
@@ -159,8 +171,12 @@ export const Game: React.FC = () => {
                     resCell.isCorrect = false;
                     resCell.isError = false;
                 }
+
+                if (resCell.isError && !prevErrorSet.has(resCellId)) newErrorCount++;
             }
         });
+
+        return newErrorCount;
     };
 
     const handleNumberSelect = (num: number) => {
@@ -180,7 +196,8 @@ export const Game: React.FC = () => {
             cell.isError = !isCorrect;
             if (!isCorrect) setErrors(prev => prev + 1);
         } else {
-            updateEquationStatus(newCells);
+            const addedErrors = updateEquationStatus(newCells, cells);
+            if (addedErrors > 0) setErrors(prev => prev + addedErrors);
         }
 
         setSelectedCellId(null);
@@ -228,7 +245,8 @@ export const Game: React.FC = () => {
         if (!selectedCellId) return;
 
         const newCells = [...cells];
-        updateEquationStatus(newCells);
+        const addedErrors = updateEquationStatus(newCells, cells);
+        if (addedErrors > 0) setErrors(prev => prev + addedErrors);
         setCells(newCells);
         checkVictory(newCells);
         setSelectedCellId(null);

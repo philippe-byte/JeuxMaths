@@ -29,17 +29,17 @@ export const Numpad: React.FC<NumpadProps> = ({ onDigit, onDelete, onClear, onCo
             ))}
             <motion.button
                 whileTap={{ scale: 0.95 }}
-                className={`${styles.key} ${styles.keySpecial}`}
-                onClick={() => !disabled && onClear()}
-            >
-                <X size={20} />
-            </motion.button>
-            <motion.button
-                whileTap={{ scale: 0.95 }}
                 className={styles.key}
                 onClick={() => !disabled && onDigit('0')}
             >
                 0
+            </motion.button>
+            <motion.button
+                whileTap={{ scale: 0.95 }}
+                className={`${styles.key} ${styles.keySpecial}`}
+                onClick={() => !disabled && onClear()}
+            >
+                <X size={20} />
             </motion.button>
             <motion.button
                 whileTap={{ scale: 0.95 }}
