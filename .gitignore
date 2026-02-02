@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Snapshots used by AI tools - not part of source repo
+.snapshots/
