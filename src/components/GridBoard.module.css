@@ -8,7 +8,10 @@
     align-content: center;
     margin: 0 auto;
     padding: 0;
-    max-width: fit-content;
+    /* Allow the grid to use the full available width on small screens and fall back to horizontal scroll if needed */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .cell {
@@ -18,11 +21,25 @@
     font-family: var(--font-family-main);
     font-weight: 700;
     transition: all 0.1s ease;
-    width: 2.75rem;
-    height: 2.75rem;
+    /* Use aspect-ratio for perfect squares and allow columns to shrink using fractional tracks */
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    min-width: 1.6rem;
+    max-width: 3.5rem;
     background-color: transparent;
     /* Default background */
     font-size: 1.1rem;
+}
+
+/* Slightly tighten gap and fonts on smaller screens */
+@media (max-width: 420px) {
+    .boardContainer { gap: 0.5px; }
+    .cell { min-width: 1.2rem; font-size: 0.95rem; }
+}
+
+@media (max-width: 360px) {
+    .cell { min-width: 1rem; font-size: 0.9rem; }
 }
 
 /* Base style for all math cells */

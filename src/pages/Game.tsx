@@ -288,12 +288,6 @@ export const Game: React.FC = () => {
                 </button>
             </header>
 
-            {/* Zone 1.5: Instruction Message */}
-            <div className="flex-none px-4 text-center">
-                <p className="text-[10px] sm:text-xs font-medium text-[hsl(var(--color-text-muted))] italic opacity-80">
-                    {t('game.instruction')}
-                </p>
-            </div>
 
             {/* Zone 2: GridBoard (Center) - Flexible and Centered */}
             <main className="flex-1 flex items-center justify-center overflow-auto p-1 min-h-0 w-full">

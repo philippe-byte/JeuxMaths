@@ -19,8 +19,9 @@ export const GridBoard: React.FC<GridBoardProps> = ({ cells, selectedCellId, onS
         <div
             className={styles.boardContainer}
             style={{
-                gridTemplateRows: `repeat(${maxRow + 1}, 2.75rem)`,
-                gridTemplateColumns: `repeat(${maxCol + 1}, 2.75rem)`,
+                /* Use flexible columns so the grid scales to available width on small screens */
+                gridTemplateColumns: `repeat(${maxCol + 1}, 1fr)`,
+                gridAutoRows: '1fr',
             }}
         >
             {cells.map((cell) => {
